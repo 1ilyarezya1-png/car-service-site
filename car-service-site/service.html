@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Service Login | NightDrive Auto Care</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="i18n.js" defer></script>
+  <style>
+    .service-login-wrapper {
+      min-height: calc(100vh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .service-login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--bg-alt);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 26px 22px 22px;
+    }
+    .service-login-card h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+    .service-login-card p {
+      margin: 0 0 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .service-login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .service-login-form label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .service-login-form input[type="password"] {
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 9px 11px;
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-main);
+      font: inherit;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+    .service-login-form input[type="password"]:focus-visible {
+      border-color: rgba(59, 130, 246, 0.9);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7);
+      background: rgba(15, 23, 42, 1);
+    }
+    .service-login-error {
+      display: none;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #fca5a5;
+    }
+    .service-login-meta {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="shell">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+              <div class="logo-mark">ND</div>
+              <div class="brand-text">
+                <div class="brand-title">NightDrive Auto Care</div>
+                <div class="brand-sub">Premium car service & detailing</div>
+              </div>
+            </a>
+          </div>
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+              <li><a href="about.html" data-i18n="nav.about">About</a></li>
+              <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+              <li><a href="index.html#services" data-i18n="nav.services">Services</a></li>
+              <li><a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a></li>
+              <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div>
+            <select id="langSelect" aria-label="Select language">
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+              <option value="ro">RO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="shell service-login-wrapper">
+        <section class="service-login-card">
+          <h1>Service access</h1>
+          <p>Authorized staff only. Enter the service password to open the client admin area.</p>
+          <form id="serviceLoginForm" class="service-login-form">
+            <div>
+              <label for="servicePassword">Service password</label>
+              <input type="password" id="servicePassword" autocomplete="current-password" />
+              <div id="serviceError" class="service-login-error">Incorrect password. Please try again.</div>
+            </div>
+            <button type="submit" class="btn-primary">Sign in</button>
+          </form>
+          <div class="service-login-meta">
+            Tip: staff should bookmark this page instead of the admin panel directly.
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <div class="footer-inner">
+          <div>© <span id="year"></span> NightDrive Auto Care. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <span>·</span>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <span>·</span>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      const AUTH_KEY = 'nightdrive_admin_auth';
+      const PASSWORD = 'service2026'; // change for production use
+
+      // If already authenticated, go straight to admin
+      try {
+        if (localStorage.getItem(AUTH_KEY) === '1') {
+          window.location.href = 'admin.html';
+          return;
+        }
+      } catch (_) {}
+
+      const form = document.getElementById('serviceLoginForm');
+      const passwordInput = document.getElementById('servicePassword');
+      const errorEl = document.getElementById('serviceError');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const value = passwordInput.value.trim();
+
+        if (value === PASSWORD) {
+          try {
+            localStorage.setItem(AUTH_KEY, '1');
+          } catch (_) {}
+          window.location.href = 'admin.html';
+        } else {
+          errorEl.style.display = 'block';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
