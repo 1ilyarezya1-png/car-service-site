@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery | NightDrive Auto Care</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="i18n.js" defer></script>
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-alt);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(5, 8, 22, 0.98), transparent);
+      padding: 20px 16px 16px;
+      color: #e5e7eb;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--bg-alt);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .modal-emoji {
+      font-size: 100px;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #e5e7eb;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      color: #3b82f6;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="shell">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+              <div class="logo-mark">ND</div>
+              <div class="brand-text">
+                <div class="brand-title">NightDrive Auto Care</div>
+                <div class="brand-sub">Premium car service & detailing</div>
+              </div>
+            </a>
+          </div>
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+              <li><a href="about.html" data-i18n="nav.about">About</a></li>
+              <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+              <li><a href="index.html#services" data-i18n="nav.services">Services</a></li>
+              <li><a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a></li>
+              <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div>
+            <select id="langSelect" aria-label="Select language">
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+              <option value="ro">RO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section style="padding: 56px 0 40px;">
+        <div class="shell">
+          <h1 style="font-size: 40px; margin: 0 0 12px; letter-spacing: -0.03em;" data-i18n="gallery.title">
+            Work Gallery
+          </h1>
+          <p style="font-size: 15px; color: var(--text-muted); max-width: 500px; margin: 0;" data-i18n="gallery.lead">
+            Browse our recent projects showcasing detailed work, paint protection, and full service transformations.
+          </p>
+
+          <div class="gallery-grid">
+            <div class="gallery-item" onclick="openModal('ceramic')">
+              <span>✨</span>
+              <div class="gallery-caption" data-i18n="gallery.card.ceramic">Ceramic Coating</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('detail')">
+              <span>🧼</span>
+              <div class="gallery-caption" data-i18n="gallery.card.detail">Interior Detail</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('service')">
+              <span>⚙️</span>
+              <div class="gallery-caption" data-i18n="gallery.card.service">Full Service</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('engine')">
+              <span>🔧</span>
+              <div class="gallery-caption" data-i18n="gallery.card.engine">Engine Bay Work</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('exterior')">
+              <span>🚗</span>
+              <div class="gallery-caption" data-i18n="gallery.card.exterior">Paint Protection</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('brake')">
+              <span>🛑</span>
+              <div class="gallery-caption" data-i18n="gallery.card.brake">Brake Service</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('wheel')">
+              <span>✨</span>
+              <div class="gallery-caption" data-i18n="gallery.card.wheel">Wheel Service</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('correction')">
+              <span>🎨</span>
+              <div class="gallery-caption" data-i18n="gallery.card.correction">Paint Correction</div>
+            </div>
+
+            <div class="gallery-item" onclick="openModal('leather')">
+              <span>🪑</span>
+              <div class="gallery-caption" data-i18n="gallery.card.leather">Leather Care</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <div class="footer-inner">
+          <div>© <span id="year"></span> NightDrive Auto Care. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <span>·</span>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <span>·</span>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="modal" class="modal">
+      <button class="close-btn" onclick="closeModal()">✕</button>
+      <div class="modal-content">
+        <div class="modal-emoji" id="modalEmoji"></div>
+        <h2 id="modalTitle" style="margin: 0 0 16px; color: #e5e7eb;"></h2>
+        <p id="modalText" style="color: var(--text-muted); margin: 0;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const projects = {
+      ceramic: { emoji: '✨' },
+      detail: { emoji: '🧼' },
+      service: { emoji: '⚙️' },
+      engine: { emoji: '🔧' },
+      exterior: { emoji: '🚗' },
+      brake: { emoji: '🛑' },
+      wheel: { emoji: '✨' },
+      correction: { emoji: '🎨' },
+      leather: { emoji: '🪑' }
+    };
+
+    function getTranslations() {
+      const lang = localStorage.getItem('site_lang') || 'en';
+      if (window.__i18n && window.__i18n.TRANSLATIONS[lang]) {
+        return window.__i18n.TRANSLATIONS[lang];
+      }
+      return window.__i18n ? window.__i18n.TRANSLATIONS.en : {};
+    }
+
+    function openModal(key) {
+      const project = projects[key];
+      const map = getTranslations();
+      const titleKey = `gallery.${key}.title`;
+      const descKey = `gallery.${key}.desc`;
+      const modal = document.getElementById('modal');
+      document.getElementById('modalEmoji').textContent = project.emoji;
+      document.getElementById('modalTitle').textContent = map[titleKey] || '';
+      document.getElementById('modalText').textContent = map[descKey] || '';
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target == modal) {
+        modal.classList.remove('active');
+      }
+    }
+  </script>
+</body>
+</html>

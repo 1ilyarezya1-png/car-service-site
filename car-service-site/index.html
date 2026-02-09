@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NightDrive Auto Care | Premium Car Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="i18n.js" defer></script>
+  <style>
+    :root {
+      --bg-main: #050816;
+      --bg-alt: #0b1220;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.9);
+      --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --transition-fast: 180ms ease-out;
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #4b9fff 0, #1d4ed8 40%, #020617 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.35),
+        0 12px 30px rgba(15, 23, 42, 0.8);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 18px;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    nav a {
+      padding: 6px 0;
+      position: relative;
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #3b82f6, #22d3ee);
+      transition: width 180ms ease-out;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: #f9fafb;
+    }
+
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      width: 100%;
+    }
+
+    /* Hero */
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      padding: 56px 0 60px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-copy-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.2), transparent 60%),
+        rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.15);
+    }
+
+    .hero-title {
+      font-size: clamp(34px, 4vw, 46px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #eff6ff, #93c5fd, #22d3ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 24px;
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 440px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-badge strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: none;
+      padding: 11px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #0b1120;
+      background: linear-gradient(to right, #3b82f6, #22d3ee);
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.55);
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), filter var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 18px 50px rgba(37, 99, 235, 0.7);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color var(--transition-fast),
+        background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(209, 213, 219, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .hero-meta strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      background: radial-gradient(circle at top left, #1d4ed8 0, transparent 55%),
+        radial-gradient(circle at bottom right, #22d3ee 0, transparent 50%),
+        #020617;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .hero-visual-plate {
+      position: absolute;
+      inset: 0;
+      opacity: 0.16;
+      background-image: radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.4) 0, transparent 0);
+      background-size: 18px 18px;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.4), transparent 60%),
+        rgba(2, 6, 23, 0.95);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 420px;
+      color: #e5e7eb;
+      z-index: 2;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-car-name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .hero-car-detail {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(96, 165, 250, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .hero-gauge-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gauge-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .gauge-bar-outer {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      overflow: hidden;
+    }
+
+    .gauge-bar-inner {
+      height: 100%;
+      width: 78%;
+      background: linear-gradient(to right, #22c55e, #eab308, #f97316, #ef4444);
+      border-radius: 999px;
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.7);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-tag {
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .hero-stats {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+      font-size: 11px;
+      color: var(--text-muted);
+      z-index: 3;
+    }
+
+    .hero-stat-card {
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-sm);
+      min-width: 120px;
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-stat-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    /* Sections */
+
+    section {
+      padding: 28px 0 8px;
+    }
+
+    section h2 {
+      font-size: 24px;
+      margin: 0 0 6px;
+      letter-spacing: -0.02em;
+    }
+
+    section p.section-lead {
+      margin: 0 0 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 460px;
+    }
+
+    /* Services */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.16), transparent 60%),
+        var(--bg-alt);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 14px 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, rgba(56, 189, 248, 0.3), transparent 60%),
+        rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.7);
+      font-size: 18px;
+    }
+
+    .service-title {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .service-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .service-meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chip-highlight {
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+    }
+
+    /* Pricing */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .pricing-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .pricing-table {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-alt);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      font-size: 13px;
+    }
+
+    .pricing-row {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(31, 41, 55, 1);
+      align-items: center;
+    }
+
+    .pricing-row.header {
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.3), transparent 70%),
+        rgba(15, 23, 42, 0.98);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #9ca3af;
+    }
+
+    .pricing-row:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-name {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .pricing-price {
+      font-weight: 600;
+      color: #bfdbfe;
+    }
+
+    .pricing-time {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .pricing-highlight {
+      border-radius: var(--radius-md);
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.25), transparent 60%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      box-shadow: 0 22px 70px rgba(8, 47, 73, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-pill {
+      font-size: 11px;
+      align-self: flex-start;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      background: rgba(22, 163, 74, 0.15);
+      color: #bbf7d0;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .pricing-highlight h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .pricing-highlight-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pricing-highlight-price {
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .pricing-highlight-price span {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .pricing-highlight ul {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pricing-highlight li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 4px;
+    }
+
+    .bullet-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    /* Contact */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .contact-card {
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.2), transparent 60%),
+        var(--bg-alt);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-sm);
+      font-size: 13px;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .contact-value {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .contact-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .contact-hours {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .contact-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .contact-cta-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .contact-form {
+      border-radius: var(--radius-md);
+      background: var(--bg-alt);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-sm);
+      font-size: 13px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 14px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    input,
+    textarea {
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 7px 9px;
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-main);
+      font: inherit;
+      resize: vertical;
+      min-height: 0;
+      outline: none;
+      transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    input:focus-visible,
+    textarea:focus-visible {
+      border-color: rgba(59, 130, 246, 0.9);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    .form-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .form-disclaimer {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    footer {
+      padding: 18px 0 24px;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(31, 41, 55, 1);
+      margin-top: 32px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Utilities */
+
+    .accent-text {
+      color: #bfdbfe;
+    }
+
+    .clickable {
+      cursor: pointer;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1.5fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        position: static;
+        background: linear-gradient(to bottom, #020617, transparent);
+      }
+
+      .nav {
+        padding: 10px 0 6px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        padding: 32px 0 40px;
+      }
+
+      .hero-card {
+        max-width: none;
+      }
+
+      .services-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pricing-row {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+        grid-auto-rows: auto;
+        row-gap: 4px;
+      }
+
+      .pricing-row .pricing-time {
+        grid-column: 1 / -1;
+      }
+
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="shell">
+        <div class="nav">
+          <div class="nav-left">
+            <div class="logo-mark">ND</div>
+            <div class="brand-text">
+              <div class="brand-title">NightDrive Auto Care</div>
+              <div class="brand-sub">Premium car service & detailing</div>
+            </div>
+          </div>
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="#services" data-i18n="nav.services">Services</a></li>
+              <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+              <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+              <li><a href="about.html" data-i18n="nav.about">About</a></li>
+              <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+            </ul>
+          </nav>
+          <div>
+            <select id="langSelect" aria-label="Select language">
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+              <option value="ro">RO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero" id="top">
+        <div class="shell">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <div class="hero-copy-eyebrow" data-i18n="hero.eyebrow">
+                <span class="status-dot"></span>
+                Same‑day appointments available
+              </div>
+              <h1 class="hero-title">
+                <span data-i18n="hero.title.part1">Keep your car</span>
+                <span data-i18n="hero.title.part2">flawless. fast. safe.</span>
+              </h1>
+              <p class="hero-subtitle" data-i18n="hero.subtitle">
+                From oil changes to full ceramic coating, NightDrive Auto Care combines precision
+                service with a modern lounge experience — so your car feels brand new every time.
+              </p>
+
+              <div class="hero-badges">
+                <div class="hero-badge" data-i18n-html="badge.rating_html">
+                  <strong>4.9</strong>
+                  rating • 1,200+ serviced
+                </div>
+                <div class="hero-badge" data-i18n-html="badge.warranty_html">
+                  <strong>Warranty-friendly</strong>
+                  maintenance & repairs
+                </div>
+                <div class="hero-badge" data-i18n-html="badge.downtown_html">
+                  <strong>Downtown</strong>
+                  location with easy parking
+                </div>
+              </div>
+
+              <div class="hero-actions">
+                <button
+                  class="btn-primary clickable"
+                  onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });"
+                >
+                  <span data-i18n="btn.book">Book service now</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+                <button
+                  class="btn-ghost clickable"
+                  onclick="document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });"
+                >
+                  <span data-i18n="btn.view_menu">View service menu</span>
+                </button>
+              </div>
+
+              <div class="hero-meta">
+                <div data-i18n="meta.today">
+                  <strong>Today</strong> · Open until 20:00
+                </div>
+                <div data-i18n="meta.dropoff">
+                  <strong>Drop‑off & wait</strong> · Free Wi‑Fi lounge
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+              <div class="hero-visual-plate"></div>
+              <div class="hero-card">
+                <div class="hero-card-header">
+                  <div>
+                    <div class="hero-car-name">Audi S5 · Night Package</div>
+                    <div class="hero-car-detail">Full synthetic service & detailing</div>
+                  </div>
+                  <div class="pill">
+                    <span class="pill-dot"></span>
+                    In progress · 34 min left
+                  </div>
+                </div>
+
+                <div class="hero-gauge-row">
+                  <div class="gauge-label-row">
+                    <span>Service timeline</span>
+                    <span>Stage 3 of 4</span>
+                  </div>
+                  <div class="gauge-bar-outer">
+                    <div class="gauge-bar-inner"></div>
+                  </div>
+                </div>
+
+                <div class="hero-tags">
+                  <div class="hero-tag">Digital inspection report</div>
+                  <div class="hero-tag">Torque-verified</div>
+                  <div class="hero-tag">Factory-spec fluids</div>
+                </div>
+              </div>
+
+              <div class="hero-stats">
+                <div class="hero-stat-card">
+                  <div class="hero-stat-label">Next available slot</div>
+                  <div class="hero-stat-value">Today · 17:30</div>
+                </div>
+                <div class="hero-stat-card">
+                  <div class="hero-stat-label">Average visit time</div>
+                  <div class="hero-stat-value">48 minutes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services">
+        <div class="shell">
+          <h2 data-i18n="nav.services">Services built for how you drive</h2>
+          <p class="section-lead">
+            Choose from our most popular packages, or combine services for a custom visit. All work
+            is performed by certified technicians using OEM‑grade parts and products.
+          </p>
+
+          <div class="services-grid">
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">🛠️</div>
+              <div class="service-title" data-i18n="service.maintenance.title">Scheduled Maintenance</div>
+              <p class="service-desc" data-i18n="service.maintenance.desc">
+                Manufacturer‑spec oil changes, filters, brakes, and inspections that keep your
+                warranty intact and your car running at its best.
+              </p>
+              <div class="service-meta">
+                <span>From 45 minutes</span>
+                <span class="chip-highlight">Most booked</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">🧼</div>
+              <div class="service-title" data-i18n="service.detailing.title">Premium Detailing</div>
+              <p class="service-desc" data-i18n="service.detailing.desc">
+                Deep interior and exterior clean, decontamination, and protection. Drive away with
+                a showroom finish and refreshed cabin.
+              </p>
+              <div class="service-meta">
+                <span>From 90 minutes</span>
+                <span>Interior & exterior</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">✨</div>
+              <div class="service-title" data-i18n="service.coating.title">Paint Protection & Coating</div>
+              <p class="service-desc" data-i18n="service.coating.desc">
+                Multi‑stage correction and ceramic coatings that lock in gloss and shield your
+                paint from daily wear, UV, and road grime.
+              </p>
+              <div class="service-meta">
+                <span>By consultation</span>
+                <span>2–5 year options</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div class="service-icon" aria-hidden="true">⚡</div>
+              <div class="service-title" data-i18n="service.diagnostics.title">Diagnostics & Repairs</div>
+              <p class="service-desc" data-i18n="service.diagnostics.desc">
+                Check engine lights, noises, or EV system checks — we’ll pinpoint the issue with
+                dealer‑grade diagnostics and transparent estimates.
+              </p>
+              <div class="service-meta">
+                <span>From 60 minutes</span>
+                <span>Full report</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section id="pricing">
+        <div class="shell">
+          <h2 data-i18n="pricing.heading">Clear, upfront pricing</h2>
+          <p class="section-lead">
+            Every visit includes a digital inspection report, torque‑verified fasteners, and
+            service history you can access anytime. No surprises, ever.
+          </p>
+
+          <div class="pricing-grid">
+            <div>
+              <p class="pricing-note">
+                Final pricing may vary by vehicle make, model, and condition. We’ll always confirm
+                your total before any work begins.
+              </p>
+              <div class="pricing-table" aria-label="Sample pricing table">
+                <div class="pricing-row header">
+                  <div>Service</div>
+                  <div>From</div>
+                  <div>Typical time</div>
+                </div>
+
+                <div class="pricing-row">
+                  <div class="pricing-name">Synthetic oil service</div>
+                  <div class="pricing-price">$129</div>
+                  <div class="pricing-time">45–60 minutes</div>
+                </div>
+
+                <div class="pricing-row">
+                  <div class="pricing-name">Brake pads & inspection</div>
+                  <div class="pricing-price">$249 / axle</div>
+                  <div class="pricing-time">60–90 minutes</div>
+                </div>
+
+                <div class="pricing-row">
+                  <div class="pricing-name">Full interior & exterior detail</div>
+                  <div class="pricing-price">$299</div>
+                  <div class="pricing-time">2.5–3.5 hours</div>
+                </div>
+
+                <div class="pricing-row">
+                  <div class="pricing-name">Ceramic coating package</div>
+                  <div class="pricing-price">$890</div>
+                  <div class="pricing-time">1–2 days</div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="pricing-highlight">
+              <div class="pricing-pill">Best value</div>
+              <div class="pricing-highlight-main">
+                <div>
+                  <h3>NightDrive Service Pack</h3>
+                  <p class="section-lead" style="margin-bottom: 4px;">
+                    Combine maintenance and detailing into one visit and save on your yearly car
+                    care.
+                  </p>
+                </div>
+                <div class="pricing-highlight-price">
+                  $389
+                  <span>/ visit</span>
+                </div>
+              </div>
+              <ul>
+                <li>
+                  <span class="bullet-dot"></span>
+                  Full synthetic oil service with inspection
+                </li>
+                <li>
+                  <span class="bullet-dot"></span>
+                  Interior refresh and exterior protection
+                </li>
+                <li>
+                  <span class="bullet-dot"></span>
+                  Priority booking & reminder schedule
+                </li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <div class="shell">
+          <h2 data-i18n="contact.heading">Contact & location</h2>
+          <p class="section-lead" data-i18n="contact.lead">
+            Call, text, or send a quick request — we’ll confirm your appointment and recommend the
+            right service for your car.
+          </p>
+
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="contact-row">
+                <div>
+                  <div class="contact-label" data-i18n="contact.call">Call or text</div>
+                  <div class="contact-value">
+                    <a href="tel:+15551234567" class="accent-text">+1 (555) 123‑4567</a>
+                  </div>
+                  <div class="contact-sub" data-i18n="contact.sub">Same‑day and next‑day slots available.</div>
+                </div>
+
+                <div>
+                  <div class="contact-label" data-i18n="contact.address">Address</div>
+                  <div class="contact-value">
+                    2140 Nightfall Avenue, Suite B<br />
+                    Downtown Metro City
+                  </div>
+                  <div class="contact-sub" data-i18n="contact.parking">Free on‑site parking & EV charging.</div>
+                </div>
+
+                <div>
+                  <div class="contact-label" data-i18n="contact.hours">Hours</div>
+                  <div class="contact-hours">
+                    <span data-i18n="contact.hours.weekdays">Monday – Friday · 08:00 – 20:00</span><br />
+                    <span data-i18n="contact.hours.saturday">Saturday · 09:00 – 17:00</span><br />
+                    <span data-i18n="contact.hours.sunday">Sunday · By appointment</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact-cta">
+                <button
+                  class="btn-primary clickable"
+                  onclick="window.location.href='tel:+15551234567';"
+                >
+                  <span data-i18n="contact.tap">Tap to call now</span>
+                </button>
+                <div class="contact-cta-note" data-i18n="contact.cta_note">
+                  Need a specific time? Add your preferred slot in the form and we’ll confirm within
+                  minutes during open hours.
+                </div>
+              </div>
+            </div>
+
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We will contact you shortly.');">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="name" data-i18n="form.label.name">Name</label>
+                  <input id="name" type="text" name="name" data-i18n-placeholder="form.name.placeholder" placeholder="Alex Driver" />
+                </div>
+                <div class="form-field">
+                  <label for="phone" data-i18n="form.label.phone">Phone</label>
+                  <input id="phone" type="tel" name="phone" data-i18n-placeholder="form.phone.placeholder" placeholder="+1 (555) 123‑4567" />
+                </div>
+                <div class="form-field">
+                  <label for="car" data-i18n="form.label.car">Car make & model</label>
+                  <input id="car" type="text" name="car" data-i18n-placeholder="form.car.placeholder" placeholder="e.g. Tesla Model 3, Audi A4" />
+                </div>
+                <div class="form-field">
+                  <label for="preferred-time" data-i18n="form.label.preferred">Preferred date & time</label>
+                  <input id="preferred-time" type="text" name="preferred-time" data-i18n-placeholder="form.preferred.placeholder" placeholder="This Friday, after 17:00" />
+                </div>
+                <div class="form-field full">
+                  <label for="message" data-i18n="form.label.message">How can we help?</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    data-i18n-placeholder="form.message.placeholder"
+                    placeholder="Describe the service you’d like — e.g. oil change + interior detail, brake squeak, check engine light, etc."
+                  ></textarea>
+                </div>
+              </div>
+              <div class="form-footer">
+                <div class="form-disclaimer" data-i18n="form.disclaimer">
+                  By sending this form you agree to be contacted about your appointment. No spam.
+                </div>
+                <button class="btn-ghost clickable" type="submit" data-i18n="btn.send_request">
+                  Send request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <div class="footer-inner">
+          <div>© <span id="year"></span> NightDrive Auto Care. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="#top" data-i18n="footer.back">Back to top</a>
+            <span>·</span>
+            <span data-i18n="footer.ase">ASE certified technicians</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Share bookings from landing page with admin panel via localStorage
+    (function () {
+      const DB_KEY = 'nightdrive_clients';
+
+      function getClients() {
+        const data = localStorage.getItem(DB_KEY);
+        return data ? JSON.parse(data) : [];
+      }
+
+      function saveClients(clients) {
+        localStorage.setItem(DB_KEY, JSON.stringify(clients));
+      }
+
+      function getTranslations() {
+        const lang = localStorage.getItem('site_lang') || 'en';
+        if (window.__i18n && window.__i18n.TRANSLATIONS[lang]) {
+          return window.__i18n.TRANSLATIONS[lang];
+        }
+        return window.__i18n ? window.__i18n.TRANSLATIONS.en : {};
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('.contact-form');
+        if (!form) return;
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const client = {
+            id: Date.now(),
+            name: document.getElementById('name').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            email: '',
+            car: document.getElementById('car').value.trim(),
+            carYear: '',
+            licensePlate: '',
+            serviceType: 'online-request',
+            notes: document.getElementById('message').value.trim(),
+            dateAdded: new Date().toISOString()
+          };
+
+          const clients = getClients();
+          clients.push(client);
+          saveClients(clients);
+
+          const map = getTranslations();
+          const msg = map['booking.thanks'] || 'Thanks! We will contact you shortly.';
+          alert(msg);
+          form.reset();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

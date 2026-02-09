@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us | NightDrive Auto Care</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="i18n.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="shell">
+        <div class="nav">
+          <div class="nav-left">
+            <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+              <div class="logo-mark">ND</div>
+              <div class="brand-text">
+                <div class="brand-title">NightDrive Auto Care</div>
+                <div class="brand-sub">Premium car service & detailing</div>
+              </div>
+            </a>
+          </div>
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+              <li><a href="about.html" data-i18n="nav.about">About</a></li>
+              <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+              <li><a href="index.html#services" data-i18n="nav.services">Services</a></li>
+              <li><a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a></li>
+              <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div>
+            <select id="langSelect" aria-label="Select language">
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+              <option value="ro">RO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section style="padding: 56px 0 40px;">
+        <div class="shell">
+          <h1 style="font-size: 40px; margin: 0 0 20px; letter-spacing: -0.03em;" data-i18n="about.title">
+            About NightDrive Auto Care
+          </h1>
+          <p style="font-size: 16px; color: var(--text-muted); max-width: 600px; line-height: 1.6; margin: 0 0 40px;" data-i18n="about.lead">
+            Founded in 2018, NightDrive Auto Care has been delivering premium car maintenance and detailing services to downtown professionals and enthusiasts who refuse to compromise on quality.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px;">
+            <div>
+              <h3 style="font-size: 18px; margin: 0 0 12px;" data-i18n="about.mission.title">Our Mission</h3>
+              <p style="font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.6;" data-i18n="about.mission.body">
+                To provide precision automotive care that exceeds expectations while maintaining transparency, integrity, and respect for our clients' vehicles and time.
+              </p>
+            </div>
+
+            <div>
+              <h3 style="font-size: 18px; margin: 0 0 12px;" data-i18n="about.team.title">Our Team</h3>
+              <p style="font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.6;" data-i18n="about.team.body">
+                All technicians are ASE certified with an average of 12+ years of experience. Continuous training ensures we stay current with the latest automotive technologies.
+              </p>
+            </div>
+
+            <div>
+              <h3 style="font-size: 18px; margin: 0 0 12px;" data-i18n="about.commitment.title">Our Commitment</h3>
+              <p style="font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.6;" data-i18n="about.commitment.body">
+                Digital inspection reports, warranty-friendly maintenance, and OEM-grade parts. We stand behind every service with a 30-day satisfaction guarantee.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding: 40px 0; background: rgba(59, 130, 246, 0.05); margin-top: 40px;">
+        <div class="shell">
+          <h2 style="font-size: 28px; margin: 0 0 30px;" data-i18n="about.why.title">Why Choose Us?</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div style="padding: 20px; background: var(--bg-alt); border-radius: 12px; border: 1px solid var(--border-subtle);">
+              <div style="font-size: 32px; margin-bottom: 12px;">⏱️</div>
+              <h4 style="margin: 0 0 8px; font-size: 14px;" data-i18n="about.why.fast.title">Fast Service</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin: 0;" data-i18n="about.why.fast.body">
+                Average 48-minute visits with comfortable lounge amenities
+              </p>
+            </div>
+
+            <div style="padding: 20px; background: var(--bg.alt); border-radius: 12px; border: 1px solid var(--border-subtle);">
+              <div style="font-size: 32px; margin-bottom: 12px;">🔒</div>
+              <h4 style="margin: 0 0 8px; font-size: 14px;" data-i18n="about.why.warranty.title">Warranty Safe</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin: 0;" data-i18n="about.why.warranty.body">
+                OEM parts and manufacturer-approved procedures protect your warranty
+              </p>
+            </div>
+
+            <div style="padding: 20px; background: var(--bg-alt); border-radius: 12px; border: 1px solid var(--border-subtle);">
+              <div style="font-size: 32px; margin-bottom: 12px;">📱</div>
+              <h4 style="margin: 0 0 8px; font-size: 14px;" data-i18n="about.why.records.title">Digital Records</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin: 0;" data-i18n="about.why.records.body">
+                All service history and inspection reports accessible anytime
+              </p>
+            </div>
+
+            <div style="padding: 20px; background: var(--bg-alt); border-radius: 12px; border: 1px solid var(--border-subtle);">
+              <div style="font-size: 32px; margin-bottom: 12px;">✅</div>
+              <h4 style="margin: 0 0 8px; font-size: 14px;" data-i18n="about.why.ase.title">ASE Certified</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin: 0;" data-i18n="about.why.ase.body">
+                Expert technicians with continuous industry training
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <div class="footer-inner">
+          <div>© <span id="year"></span> NightDrive Auto Care. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <span>·</span>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <span>·</span>
+            <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
